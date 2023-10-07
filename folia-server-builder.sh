@@ -23,7 +23,7 @@ clone_directory="/tmp/foliamc-build-temp"
 mkdir -p "$clone_directory"
 git clone --single-branch --branch "$branch_or_tag" https://github.com/PaperMC/Folia.git "$clone_directory"
 
-cd "$clone_directory/Folia"
+cd "$clone_directory"
 
 read -p "Please Type your git username: " gitUsername
 read -p "Please Type your git Email: " gitEmail
