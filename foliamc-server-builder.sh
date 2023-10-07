@@ -49,6 +49,6 @@ echo "java -jar -Xms$minRam -Xmx$maxRam server.jar" > "$current_directory/run.sh
 chmod +x "$current_directory/run.sh"
 
 echo "Cleaning..."
-rm -r "$clone_directory"
+rm -rf "$clone_directory"
 
 echo "Build completed."
