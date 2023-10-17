@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Folia Server Builder by Rajala1404"
-echo "Version: 1.0.1"
+echo "Version: 1.0.(2)"
 
 current_directory=$(pwd)
 
@@ -20,6 +20,7 @@ select branch_or_tag in $branches_and_tags; do
 done
 
 clone_directory="/tmp/foliamc-build-temp"
+rm -rf "$clone_directory"
 mkdir -p "$clone_directory"
 git clone --single-branch --branch "$branch_or_tag" https://github.com/PaperMC/Folia.git "$clone_directory"
 
