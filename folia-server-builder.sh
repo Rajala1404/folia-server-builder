@@ -9,7 +9,7 @@ echo "Starting Build of Folia..."
 
 branches_and_tags=$(git ls-remote --refs --tags --heads https://github.com/PaperMC/Folia.git | cut -f2 | cut -d'/' -f3- | sort -u)
 
-echo "Available branches and tags:"
+echo "Available branches and tags: "
 PS3="Please select a branch or tag (enter the number): "
 select branch_or_tag in $branches_and_tags; do
     if [ -n "$branch_or_tag" ]; then
