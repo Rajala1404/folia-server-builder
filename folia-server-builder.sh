@@ -40,7 +40,6 @@ cp server.jar "$current_directory"
 
 echo "eula=true" > "$current_directory/eula.txt"
 
-# RAM-Einstellungen abfragen
 read -p "Min Ram ex. 256M: " minRam
 read -p "Max Ram ex. 4G: " maxRam
 
