@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Folia Server Builder by Rajala1404"
-echo "Version: 1.0.(2)"
+echo "Version: 1.0.2"
 
 current_directory=$(pwd)
 
