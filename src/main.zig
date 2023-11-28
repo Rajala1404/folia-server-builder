@@ -44,7 +44,7 @@ pub fn main() !void {
         try getPath();
     }
     if (buildArg) {
-        try builder;
+        try builder.main(path);
     }
 }
 
