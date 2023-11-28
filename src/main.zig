@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
 const stdin = std.io.getStdIn();
 const stdout = std.io.getStdOut();
@@ -16,7 +17,7 @@ var versionArg = false;
 var buildArg = false;
 
 //Global Placeholders
-var path: []const u8 = undefined;
+var path: []const u8 = "./";
 
 pub fn main() !void {
     var args = std.process.args();
@@ -35,8 +36,12 @@ pub fn main() !void {
             buildArg = true;
         }
     }
-    try out.print("Version: {s} \n", .{ver});
-    try getPath();
+    if (versionArg) {
+        try out.print("Version: {s} \n", .{ver});
+    }
+    if (customDirArg) {
+        try getPath();
+    }
 }
 
 fn getPath() !void {
