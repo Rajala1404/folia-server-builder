@@ -3,13 +3,38 @@ const std = @import("std");
 const stdin = std.io.getStdIn();
 const stdout = std.io.getStdOut();
 const out = stdout.writer();
+const eql = std.mem.eql;
 
+//Global Constants
 const ver: []const u8 = "1.0.3 (Zig)";
 const veri: i32 = 103;
 
+//Arguments
+var debuggingArg = false;
+var customDirArg = false;
+var versionArg = false;
+var buildArg = false;
+
+//Global Placeholders
 var path: []const u8 = undefined;
 
 pub fn main() !void {
+    var args = std.process.args();
+    while (args.next()) |arg| {
+        if (eql(u8, arg, "--debug") or eql(u8, arg, "-d")) {
+            debuggingArg = true;
+            std.debug.print("Debugging enabled.\n", .{});
+        }
+        if (eql(u8, arg, "--custom-dir") or eql(u8, arg, "-cd")) {
+            customDirArg = true;
+        }
+        if (eql(u8, arg, "--version") or eql(u8, arg, "-v")) {
+            versionArg = true;
+        }
+        if (eql(u8, arg, "--build") or eql(u8, arg, "-b")) {
+            buildArg = true;
+        }
+    }
     try out.print("Version: {s} \n", .{ver});
     try getPath();
 }
@@ -17,7 +42,6 @@ pub fn main() !void {
 fn getPath() !void {
     var check = true;
     var input: []const u8 = undefined;
-    const eql = std.mem.eql;
     while (check) {
         try stdout.writeAll(
             \\Server Path: 
