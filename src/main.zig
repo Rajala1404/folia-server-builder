@@ -41,9 +41,11 @@ pub fn main() !void {
         try out.print("Version: {s} \n", .{ver});
     }
     if (customDirArg) {
+        if (debuggingArg) std.debug.print("[DEBUG] Asking for Path", .{});
         try getPath();
     }
     if (buildArg) {
+        if (debuggingArg) std.debug.print("[DEBUG] try to acces builder.zig/main", .{});
         try builder.main(path);
     }
 }
