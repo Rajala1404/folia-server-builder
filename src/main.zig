@@ -1,5 +1,6 @@
 const std = @import("std");
 const builtin = @import("builtin");
+const builder = @import("builder.zig");
 
 const stdin = std.io.getStdIn();
 const stdout = std.io.getStdOut();
@@ -41,6 +42,9 @@ pub fn main() !void {
     }
     if (customDirArg) {
         try getPath();
+    }
+    if (buildArg) {
+        try builder;
     }
 }
 
