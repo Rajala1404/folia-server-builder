@@ -83,7 +83,7 @@ fn getPath() !void {
 
 fn nextLine(reader: anytype, buffer: []u8) !?[]const u8 {
     var line = (try reader.readUntilDelimiterOrEof(buffer, '\n')) orelse return null;
-    if (@import("builtin").os.tag == .windows) {
+    if (builtin.os.tag == .windows) {
         return std.mem.trimRight(u8, line, "\r");
     } else {
         return line;
