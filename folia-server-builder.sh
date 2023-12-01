@@ -35,7 +35,7 @@ git config user.email "$gitEmail"
 ./gradlew applyPatches
 ./gradlew createReobfBundlerJar
 
-mv build/libs/*folia-bundler*SNAPSHOT-reobf.jar server.jar
+mv build/libs/*folia-bundler*-reobf.jar server.jar
 cp server.jar "$current_directory"
 
 echo "eula=true" > "$current_directory/eula.txt"
