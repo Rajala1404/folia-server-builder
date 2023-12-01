@@ -13,7 +13,6 @@ const veri: i32 = 103;
 
 //Arguments
 var debuggingArg = false;
-var customDirArg = false;
 var versionArg = false;
 var buildArg = false;
 
@@ -27,9 +26,6 @@ pub fn main() !void {
             debuggingArg = true;
             std.debug.print("Debugging enabled.\n", .{});
         }
-        if (eql(u8, arg, "--custom-dir") or eql(u8, arg, "-cd")) {
-            customDirArg = true;
-        }
         if (eql(u8, arg, "--version") or eql(u8, arg, "-v")) {
             versionArg = true;
         }
@@ -40,11 +36,9 @@ pub fn main() !void {
     if (versionArg) {
         try out.print("Version: {s} \n", .{ver});
     }
-    if (customDirArg) {
-        if (debuggingArg) std.debug.print("[DEBUG] Asking for Path", .{});
-        try getPath();
-    }
     if (buildArg) {
+        if (debuggingArg) std.debug.print("[DEBUG] Ask for path with getPath()", .{});
+        try getPath();
         if (debuggingArg) std.debug.print("[DEBUG] try to acces builder.zig/main", .{});
         try builder.main(path);
     }
