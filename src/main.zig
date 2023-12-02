@@ -2,10 +2,10 @@ const std = @import("std");
 const builtin = @import("builtin");
 const builder = @import("builder.zig");
 
-const stdin = std.io.getStdIn();
-const stdout = std.io.getStdOut();
-const out = stdout.writer();
 const eql = std.mem.eql;
+
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+const allocator = gpa.allocator();
 
 //Global Constants
 const ver: []const u8 = "1.0.3 (Zig)";
@@ -20,7 +20,9 @@ var buildArg = false;
 var path: []const u8 = "./";
 
 pub fn main() !void {
-    var args = std.process.args();
+    const stdout = std.io.getStdOut();
+    const out = stdout.writer();
+    var args = try std.process.ArgIterator.initWithAllocator(allocator);
     while (args.next()) |arg| {
         if (eql(u8, arg, "--debug") or eql(u8, arg, "-d")) {
             debuggingArg = true;
@@ -45,6 +47,9 @@ pub fn main() !void {
 }
 
 fn getPath() !void {
+    const stdout = std.io.getStdOut();
+    const out = stdout.writer();
+    const stdin = std.io.getStdIn();
     var check = true;
     var input: []const u8 = undefined;
     while (check) {
