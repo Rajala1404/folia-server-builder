@@ -52,9 +52,6 @@ fn askGit() !void {
                 try out.print("\"{s}\" is not a valid Answer\n", .{i});
             }
 
-            // const dir = try std.fs.cwd().openDir("/tmp/Folia", .{});
-            // const file = try dir.createFile("gitName", .{ .read = true });
-            // defer file.close();
             const file = try utils.createFile(tempDir, winTempDir, "gitName");
             defer file.close();
             const bytes_written = try file.writeAll(gitName);
