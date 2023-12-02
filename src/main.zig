@@ -64,9 +64,9 @@ fn getPath() !void {
             try stdout.writeAll(
                 \\Is this Right? [Y/n] 
             );
-            buffer = undefined;
+            var buffer2: [100]u8 = undefined;
 
-            var i = (try nextLine(stdin.reader(), &buffer)).?;
+            var i = (try nextLine(stdin.reader(), &buffer2)).?;
             const possibleAnswer = [5][]const u8{ "Y", "y", "N", "n", "" };
             if (eql(u8, i, possibleAnswer[0]) or eql(u8, i, possibleAnswer[1]) or eql(u8, i, possibleAnswer[4])) {
                 check = false;
@@ -78,6 +78,11 @@ fn getPath() !void {
             }
         }
     }
+    const dir = try std.fs.cwd().openDir(path, .{});
+    const file = try dir.createFile("path.txt", .{ .read = true });
+    defer file.close();
+    const bytes_written = try file.writeAll(path);
+    _ = bytes_written;
 }
 
 fn nextLine(reader: anytype, buffer: []u8) !?[]const u8 {
