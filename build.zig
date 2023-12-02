@@ -17,16 +17,6 @@ pub fn build(b: *std.Build) void {
     const target_macos_x86_64 = std.zig.CrossTarget{ .os_tag = .macos, .cpu_arch = .x86_64 };
     const target_macos_aarch64 = std.zig.CrossTarget{ .os_tag = .macos, .cpu_arch = .aarch64 };
 
-    // //FreeBSD
-    // const target_freebsd_x86_64 = std.zig.CrossTarget{ .os_tag = .freebsd, .cpu_arch = .x86_64 };
-    // const target_freebsd_x86 = std.zig.CrossTarget{ .os_tag = .freebsd, .cpu_arch = .x86 };
-    // const target_freebsd_aarch64 = std.zig.CrossTarget{ .os_tag = .freebsd, .cpu_arch = .aarch64 };
-    // const target_freebsd_arm = std.zig.CrossTarget{ .os_tag = .freebsd, .cpu_arch = .arm };
-
-    // //NetBSD
-    // const target_netbsd_arm = std.zig.CrossTarget{ .os_tag = .netbsd, .cpu_arch = .arm };
-    // const target_netbsd_aarch64 = std.zig.CrossTarget{ .os_tag = .netbsd, .cpu_arch = .aarch64 };
-
     const optimize = b.standardOptimizeOption(.{});
 
     const exe = b.addExecutable(.{
@@ -90,46 +80,6 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    //FreeBSD
-    // const freebsd_x86_64 = b.addExecutable(.{
-    //     .name = "folia-server-builder_freebsd_x86_64",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_freebsd_x86_64,
-    //     .optimize = optimize,
-    // });
-    // const freebsd_x86 = b.addExecutable(.{
-    //     .name = "folia-server-builder_freebsd_x86",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_freebsd_x86,
-    //     .optimize = optimize,
-    // });
-    // const freebsd_aarch64 = b.addExecutable(.{
-    //     .name = "folia-server-builder_freebsd_aarch64",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_freebsd_aarch64,
-    //     .optimize = optimize,
-    // });
-    // const freebsd_arm = b.addExecutable(.{
-    //     .name = "folia-server-builder_freebsd_arm",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_freebsd_arm,
-    //     .optimize = optimize,
-    // });
-
-    // //NetBSD
-    // const netbsd_aarch64 = b.addExecutable(.{
-    //     .name = "folia-server-builder_netbsd_aarch64",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_netbsd_aarch64,
-    //     .optimize = optimize,
-    // });
-    // const netbsd_arm = b.addExecutable(.{
-    //     .name = "folia-server-builder_netbsd_arm",
-    //     .root_source_file = .{ .path = "src/main.zig" },
-    //     .target = target_netbsd_arm,
-    //     .optimize = optimize,
-    // });
-
     b.installArtifact(exe);
     b.installArtifact(linux_x86_64);
     b.installArtifact(linux_x86);
@@ -139,12 +89,6 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(windows_x86);
     b.installArtifact(macos_x86_64);
     b.installArtifact(macos_aarch64);
-    // b.installArtifact(freebsd_x86_64);
-    // b.installArtifact(freebsd_x86);
-    // b.installArtifact(freebsd_aarch64);
-    // b.installArtifact(freebsd_arm);
-    // b.installArtifact(netbsd_aarch64);
-    // b.installArtifact(netbsd_arm);
 
     const run_cmd = b.addRunArtifact(exe);
 
@@ -166,14 +110,6 @@ pub fn build(b: *std.Build) void {
     //macOS
     all_step.dependOn(&macos_x86_64.step);
     all_step.dependOn(&macos_aarch64.step);
-    // //FreeBSD
-    // all_step.dependOn(&freebsd_x86_64.step);
-    // all_step.dependOn(&freebsd_x86.step);
-    // all_step.dependOn(&freebsd_aarch64.step);
-    // all_step.dependOn(&freebsd_arm.step);
-    // //NetBSD
-    // all_step.dependOn(&netbsd_aarch64.step);
-    // all_step.dependOn(&netbsd_arm.step);
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
