@@ -18,6 +18,7 @@ var path: []const u8 = "./";
 pub fn main() !void {
     path = mainC.path;
     try askGit();
+    try askRepo();
 }
 
 fn askGit() !void {
@@ -128,7 +129,7 @@ fn askRepo() !void {
                     input = "master";
                     checkGitBranch = false;
                 } else {
-                    out.print("\'{}\' is not an valid answer", .{input});
+                    try out.print("\'{s}\' is not an valid answer", .{input});
                     break;
                 }
             }
@@ -144,7 +145,7 @@ fn askRepo() !void {
             if (eql(u8, i, possibleAnswer[0]) or eql(u8, i, possibleAnswer[1]) or eql(u8, i, possibleAnswer[4])) {
                 if (eql(u8, input, "custom")) {
                     while (check) {
-                        stdout.writeAll(
+                        try stdout.writeAll(
                             \\Custom Git Branch (HTTPS): 
                         );
 
@@ -159,7 +160,9 @@ fn askRepo() !void {
                                 \\Is this Right? [Y/N] 
                             );
                             input = (try utils.nextLine(stdin.reader(), &buffer)).?;
-                            if (eql(u8, i, possibleAnswer[0]) or eql(u8, i, possibleAnswer[1]) or eql(u8, i, possibleAnswer[4])) {}
+                            if (eql(u8, i, possibleAnswer[0]) or eql(u8, i, possibleAnswer[1]) or eql(u8, i, possibleAnswer[4])) {
+                                check = false;
+                            }
                         }
                     }
                 }

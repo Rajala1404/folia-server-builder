@@ -15,7 +15,7 @@ pub fn createFile(dir: []const u8, winDir: []const u8, fileName: []const u8) !st
 }
 
 pub fn nextLine(reader: anytype, buffer: []u8) !?[]const u8 {
-    var line = (try reader.readUntilDelimiterOrEof(buffer, '\n')) orelse return null;
+    const line = (try reader.readUntilDelimiterOrEof(buffer, '\n')) orelse return null;
     if (builtin.os.tag == .windows) {
         return std.mem.trimRight(u8, line, "\r");
     } else {

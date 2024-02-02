@@ -44,7 +44,7 @@ pub fn main() !void {
     if (buildArg) {
         if (debuggingArg) std.log.debug("Ask for path with getPath()", .{});
         try getPath();
-        if (debuggingArg) std.log.debug("Try to acces builder.zig/main", .{});
+        if (debuggingArg) std.log.debug("Try to access builder.zig/main", .{});
         try builder.main();
     }
 }
